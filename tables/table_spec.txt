@@ -1,0 +1,17 @@
+airosol:python jordan$ python table.py
+Enter some words, separated by spaces: milk eggs butter singletons
+    bread sugar worcestershire
+Enter a title: ingredients
++-----------------+
+|   ingredients   |
++-----------------+
+| milk            |
+| eggs            |
+| butter          |
+| singletons      |
+| bread           |
+| sugar           |
+| worcestershire  |
++-----------------+
+
+airosol:python jordan$
