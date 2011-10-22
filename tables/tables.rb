@@ -1,12 +1,13 @@
 #!/usr/bin/ruby
 
 class Table
-  attr_accessor :title, :contents, :width
+  attr_accessor :title, :contents, :column_width, :longest_word
 
   def initialize(title, contents)
     @title = title
     @contents = contents
-    @width = longest_word + 2
+    @longest_word = longest_word
+    @column_width = @longest_word + 2
   end
 
   def longest_word
@@ -17,6 +18,24 @@ class Table
     longest
   end
 
+  def left_align(text)
+    padding = @longest_word - text.length
+    padding.times do text += " " end
+    return text
+  end
+
+  def center_align(text)
+    left_padding = (@longest_word - text.length) / 2
+    right_padding = left_padding
+    # If we have an odd numbered width add the extra padding on the right
+    if (right_padding % 2) != 0 then right_padding += 1 end
+    aligned_text = ""
+    left_padding.times do aligned_text += " " end
+    aligned_text += text
+    right_padding.times do aligned_text += " " end
+    return aligned_text
+  end
+
   def print_table
     print_header
     print_contents
@@ -24,25 +43,21 @@ class Table
 
   def print_horiz_bar
     print "+"
-    @width.times do print "-" end
+    @column_width.times do print "-" end
     puts "+"
   end
 
   def print_header
     print_horiz_bar
-    print "| " + @title
-    buffer = @width - (@title.length + 1)
-    buffer.times do print " " end
-    puts "|"
+    print "| " + center_align(@title)
+    puts " |"
     print_horiz_bar
   end
 
   def print_contents
     for word in @contents do
-      print "| " + word #+ " |"
-      buffer = @width - (word.length + 1)
-      buffer.times do print " " end
-      puts "|"
+      print "| " + left_align(word)
+      puts " |"
     end
     print_horiz_bar
   end
