@@ -1,3 +1,17 @@
+
+Challenge taken from: http://programthis.net/table-games/
+
+Below text copied from the above page in case it disappears from the web.
+
+We're going to start off simple, making a one column table from a 1-dimensional array of data. So what sort of challenge will you face? To be honest, not much - this is just a fun little exercise to sharpen your skills with string operations. There are a lot of other features you can implement on your own time to bring this up to your skill level. The challenge however, is figuring out how wide the column needs to be, and making sure to "pad" with the correct amount of whitespace.
+
+Some other things to consider.
+
+Each column has a header
+Each cell of the table (where a row meets a column) has 1 space between the pipe and the start of the string
+The width of the cell is determined by the longest element
+So now your task is to recreate this feature. As a bonus, I am going to request that you center the text in the header the best you can. Here's the behavior you should try to replicate.
+
 airosol:python jordan$ python table.py
 Enter some words, separated by spaces: milk eggs butter singletons
     bread sugar worcestershire
@@ -15,3 +29,10 @@ Enter a title: ingredients
 +-----------------+
 
 airosol:python jordan$
+In my example, each cell starts with a space and ends with two spaces - you're free to choose your own behavior. If you're looking for harder stuff, here are some bonus features you should consider implementing.
+
+Try enabling more than one column, while still retaining the same behavior for each
+Add a flag for printing a number column in the beginning. That is, placing # in the header, and 1, 2, 3, etc. for each column
+Try putting lines under each cell as well, and not just under the header. Depending on how you structure your code, this can be extremely simple
+Sort the items before placing them in a table (and rearrange the indicies to match!)
+As always, feel free to add whatever you'd like to this assignment - I'm interested to see what ideas you guys come up with.
