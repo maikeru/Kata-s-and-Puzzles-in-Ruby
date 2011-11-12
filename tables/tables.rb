@@ -63,15 +63,24 @@ class Table
   end
 end
 
-puts "Enter some words, separated by spaces: ";
+class Main
+    def self.start
+        puts "Enter some words, separated by spaces: ";
 
-words = gets.chomp;
-words2 = words.split;
+        words = gets.chomp;
+        words2 = words.split;
 
-puts "Enter a title: ";
-title = gets.chomp;
+        puts "Enter a title: ";
+        title = gets.chomp;
 
-table = Table.new(title, words2)
-table.print_table()
+        table = Table.new(title, words2)
+        table.print_table()
 
-puts "Your words " + words;
+        puts "Your words " + words;
+    end
+end
+
+if $0 == __FILE__
+    #main = main.new
+    Main.start
+end
