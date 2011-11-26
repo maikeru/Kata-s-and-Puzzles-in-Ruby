@@ -13,6 +13,7 @@ Plans/Brainstorming
 The way I see it this program divides into the following parts:
 
 The basic sequence of events should be something like this:
+
 * Display board
 * Request move
 * Check if can move
@@ -20,6 +21,7 @@ The basic sequence of events should be something like this:
 * Check win/lose conditions
 
 Breaking this up into responsibilities:
+
 * Internal board representation
 * External board representation (display)
 * Player interface
