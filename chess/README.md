@@ -28,6 +28,7 @@ Breaking this up into responsibilities:
 * (move parsing)
 * Rule checking (pre/post move)
 
+TODO: Write some cucumber features for BDD
 
 K = King
 Q = Queen
