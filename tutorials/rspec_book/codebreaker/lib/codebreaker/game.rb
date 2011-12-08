@@ -14,10 +14,14 @@ module Codebreaker
             marker = Marker.new(@secret, guess)
             @output.puts '+' * marker.exact_match_count + 
                          '-' * marker.number_match_count
-            if marker.exact_match_count == 4
+            if has_won?(marker)
                 @output.puts 'Congratulations! You won!'
                 return
             end
+        end
+
+        def has_won?(marker)
+            marker.exact_match_count == 4
         end
     end
 end
