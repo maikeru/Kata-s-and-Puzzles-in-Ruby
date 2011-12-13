@@ -29,6 +29,17 @@ Breaking this up into responsibilities:
 * Rule checking (pre/post move)
 
 TODO: Write some cucumber features for BDD
+What features would we have?
+* player starts game
+* player makes a move
+* player checks opponent
+* player checkmates opponent
+* opponent checkmates player
+* player draws game
+* player quits game
+
+I get the feeling that these will need breaking up but I'll stick with them as is for now.
+
 
 K = King
 Q = Queen
