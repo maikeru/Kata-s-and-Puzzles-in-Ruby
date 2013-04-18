@@ -54,36 +54,84 @@ describe "when a cell is dead" do
   end
 
   describe "and it has two neighbours" do
-    it "stays dead"
+    it "stays dead" do
+      @cell.neighbours.push Cell.new
+      @cell.neighbours.push Cell.new
+      @cell.evaluate
+      assert @cell.is_dead?
+    end
   end
 
   describe "and it has three neighbours" do
-    it "comes to life"
+    it "comes to life" do
+      @cell.neighbours.push Cell.new
+      @cell.neighbours.push Cell.new
+      @cell.neighbours.push Cell.new
+      @cell.evaluate
+      assert @cell.is_alive?
+    end
   end
 
   describe "and it has four neighbours" do
-    it "stays dead"
+    it "stays dead" do
+      @cell.neighbours.push Cell.new
+      @cell.neighbours.push Cell.new
+      @cell.neighbours.push Cell.new
+      @cell.neighbours.push Cell.new
+      @cell.evaluate
+      assert @cell.is_dead?
+    end
   end
 end
 
 describe "when a cell is alive" do
+  before do
+    @cell = Cell.new
+    @cell.state = "alive"
+  end
+
   describe "and it has no neighbours" do
-    it "dies"
+    it "dies" do
+      @cell.evaluate
+      assert @cell.is_dead?
+    end
   end
 
   describe "and it has one neighbour" do
-    it "dies"
+    it "dies" do
+      @cell.neighbours.push Cell.new
+      @cell.evaluate
+      assert @cell.is_dead?
+    end
   end
 
   describe "and it has two neighbours" do
-    it "lives"
+    it "lives" do
+      @cell.neighbours.push Cell.new
+      @cell.neighbours.push Cell.new
+      @cell.evaluate
+      assert @cell.is_alive?
+    end
   end
 
   describe "and it has three neighbours" do
-    it "lives"
+    it "lives" do
+      @cell.neighbours.push Cell.new
+      @cell.neighbours.push Cell.new
+      @cell.neighbours.push Cell.new
+      @cell.evaluate
+      assert @cell.is_alive?
+    end
   end
 
   describe "and it has four neighbours" do
-    it "dies"
+    it "dies" do
+      @cell.neighbours.push Cell.new
+      @cell.neighbours.push Cell.new
+      @cell.neighbours.push Cell.new
+      @cell.neighbours.push Cell.new
+      @cell.evaluate
+      assert @cell.is_dead?
+    end
   end
 end

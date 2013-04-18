@@ -14,6 +14,13 @@ class Cell
   end
 
   def evaluate
+    if @neighbours.count == 3
+      @state = "alive"
+    elsif @neighbours.count < 2 || @neighbours.count > 3
+      @state = "dead"
+    elsif @neighbours.count == 2
+      #don't change state
+    end
   end
 end
 
