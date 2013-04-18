@@ -2,30 +2,32 @@ require 'minitest/autorun'
 require_relative '../cell'
 
 describe "when a cell is in a dead state" do
+  before do
+    @cell = Cell.new
+    @cell.state = "dead"
+  end
+
   it "says that it is dead" do
-    cell = Cell.new
-    cell.state = "dead"
-    assert cell.is_dead?
+    assert @cell.is_dead?
   end
 
   it "says that it is not alive" do
-    cell = Cell.new
-    cell.state = "dead"
-    assert !cell.is_alive?
+    assert !@cell.is_alive?
   end
 end
 
 describe "when a cell is in an alive state" do
+  before do
+    @cell = Cell.new
+    @cell.state = "alive"
+  end
+
   it "says that is is alive" do
-    cell = Cell.new
-    cell.state = "alive"
-    assert cell.is_alive?
+    assert @cell.is_alive?
   end
 
   it "says that is is not dead" do
-    cell = Cell.new
-    cell.state = "alive"
-    assert !cell.is_dead?
+    assert !@cell.is_dead?
   end
 end
 
