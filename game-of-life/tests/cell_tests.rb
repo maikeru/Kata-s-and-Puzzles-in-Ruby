@@ -4,7 +4,7 @@ require_relative '../cell'
 describe "when a cell is in a dead state" do
   before do
     @cell = Cell.new
-    @cell.state = "dead"
+    @cell.die
   end
 
   it "says that it is dead" do
@@ -19,7 +19,7 @@ end
 describe "when a cell is in an alive state" do
   before do
     @cell = Cell.new
-    @cell.state = "alive"
+    @cell.vivify
   end
 
   it "says that is is alive" do
@@ -35,7 +35,7 @@ describe "when a cell is dead" do
 
   before do
     @cell = Cell.new
-    @cell.state = "dead"
+    @cell.die
   end
 
   describe "and it has no neighbours" do
@@ -55,8 +55,7 @@ describe "when a cell is dead" do
 
   describe "and it has two neighbours" do
     it "stays dead" do
-      @cell.neighbours.push Cell.new
-      @cell.neighbours.push Cell.new
+      2.times { @cell.neighbours.push Cell.new }
       @cell.evaluate
       assert @cell.is_dead?
     end
@@ -64,9 +63,7 @@ describe "when a cell is dead" do
 
   describe "and it has three neighbours" do
     it "comes to life" do
-      @cell.neighbours.push Cell.new
-      @cell.neighbours.push Cell.new
-      @cell.neighbours.push Cell.new
+      3.times { @cell.neighbours.push Cell.new }
       @cell.evaluate
       assert @cell.is_alive?
     end
@@ -74,10 +71,7 @@ describe "when a cell is dead" do
 
   describe "and it has four neighbours" do
     it "stays dead" do
-      @cell.neighbours.push Cell.new
-      @cell.neighbours.push Cell.new
-      @cell.neighbours.push Cell.new
-      @cell.neighbours.push Cell.new
+      4.times { @cell.neighbours.push Cell.new }
       @cell.evaluate
       assert @cell.is_dead?
     end
@@ -87,7 +81,7 @@ end
 describe "when a cell is alive" do
   before do
     @cell = Cell.new
-    @cell.state = "alive"
+    @cell.vivify
   end
 
   describe "and it has no neighbours" do
@@ -107,8 +101,7 @@ describe "when a cell is alive" do
 
   describe "and it has two neighbours" do
     it "lives" do
-      @cell.neighbours.push Cell.new
-      @cell.neighbours.push Cell.new
+      2.times { @cell.neighbours.push Cell.new }
       @cell.evaluate
       assert @cell.is_alive?
     end
@@ -116,9 +109,7 @@ describe "when a cell is alive" do
 
   describe "and it has three neighbours" do
     it "lives" do
-      @cell.neighbours.push Cell.new
-      @cell.neighbours.push Cell.new
-      @cell.neighbours.push Cell.new
+      3.times { @cell.neighbours.push Cell.new }
       @cell.evaluate
       assert @cell.is_alive?
     end
@@ -126,10 +117,7 @@ describe "when a cell is alive" do
 
   describe "and it has four neighbours" do
     it "dies" do
-      @cell.neighbours.push Cell.new
-      @cell.neighbours.push Cell.new
-      @cell.neighbours.push Cell.new
-      @cell.neighbours.push Cell.new
+      4.times { @cell.neighbours.push Cell.new }
       @cell.evaluate
       assert @cell.is_dead?
     end
