@@ -76,6 +76,14 @@ describe "when a cell is dead" do
       assert @cell.is_dead?
     end
   end
+
+  describe "and it has six neighbours" do
+    it "stays dead" do
+      6.times { @cell.neighbours.push Cell.new }
+      @cell.evaluate
+      assert @cell.is_dead?
+    end
+  end
 end
 
 describe "when a cell is alive" do
@@ -118,6 +126,14 @@ describe "when a cell is alive" do
   describe "and it has four neighbours" do
     it "dies" do
       4.times { @cell.neighbours.push Cell.new }
+      @cell.evaluate
+      assert @cell.is_dead?
+    end
+  end
+
+  describe "and it has seven neighbours" do
+    it "dies" do
+      7.times { @cell.neighbours.push Cell.new }
       @cell.evaluate
       assert @cell.is_dead?
     end
