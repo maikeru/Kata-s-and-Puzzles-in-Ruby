@@ -154,3 +154,19 @@ describe "when cell a is added as a neighbour to cell b" do
     @cell_a.neighbours.must_include @cell_b
   end
 end
+
+describe "when cell a is added as a neighbour to cell b twice" do
+  before do
+    @cell_a = Cell.new
+    @cell_b = Cell.new
+    @cell_b.add_neighbour @cell_a
+    @cell_b.add_neighbour @cell_a
+  end
+
+  it "only exists once in b's neighbour list" do
+    @cell_b.neighbours.count(@cell_a).must_equal 1
+  end
+  it "only contains b once in it's neighbour list" do
+    @cell_a.neighbours.count(@cell_b).must_equal 1
+  end
+end

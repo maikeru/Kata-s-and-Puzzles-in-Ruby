@@ -36,8 +36,10 @@ class Cell
   end
 
   def add_neighbour neighbour
-    @neighbours.push neighbour
-    neighbour.neighbours.push self
+    if not @neighbours.include? neighbour
+      @neighbours.push neighbour
+      neighbour.neighbours.push self
+    end
   end
 
   def to_s
