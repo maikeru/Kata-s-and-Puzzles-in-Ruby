@@ -1,8 +1,12 @@
 
 class Cell
+  @@id_counter = 0
   attr_accessor :state, :neighbours
+  attr_reader :id
   def initialize
     @neighbours = []
+    @id = @@id_counter
+    @@id_counter += 1
   end
 
   def is_dead?
@@ -29,6 +33,15 @@ class Cell
 
   def vivify
     @state = "alive"
+  end
+
+  def add_neighbour neighbour
+    @neighbours.push neighbour
+    neighbour.neighbours.push self
+  end
+
+  def to_s
+    "cell_#{id.to_s}"
   end
 
 end

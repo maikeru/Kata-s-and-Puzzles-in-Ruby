@@ -139,3 +139,18 @@ describe "when a cell is alive" do
     end
   end
 end
+
+describe "when cell a is added as a neighbour to cell b" do
+  before do
+    @cell_a = Cell.new
+    @cell_b = Cell.new
+    @cell_b.add_neighbour @cell_a
+  end
+
+  it "exists in cell b's neighbour list" do
+    @cell_b.neighbours.must_include @cell_a
+  end
+  it "contains cell b in it's neighbour list" do
+    @cell_a.neighbours.must_include @cell_b
+  end
+end
