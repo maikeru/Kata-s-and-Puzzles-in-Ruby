@@ -1,4 +1,5 @@
 require_relative 'cell'
+require 'pp'
 
 class Grid
   attr_reader :cells
@@ -13,22 +14,27 @@ class Grid
     grid_lines = grid_string.split "\n"
     x = grid_lines[0].length
     y = grid_lines.size
+    @cells = Array.new(x) { Array.new(y) { Cell.new } }
     y.times do |y_pos|
       x.times do |x_pos|
-        new_cell = Cell.new
-        previous_cell = @cells.last
-        @cells.push new_cell
-        if previous_cell
-          previous_cell.neighbours.push new_cell
-          new_cell.neighbours.push previous_cell
+        #puts "xpos #{x_pos} ypos #{y_pos}"
+        new_cell = @cells[x_pos][y_pos]
+        #@cells.push new_cell
+        previous_cell = nil
+        if x_pos > 0
+          previous_cell = @cells[x_pos - 1][y_pos]
+          previous_cell.add_neighbour new_cell
         end
         if y_pos > 0
-          above_cell_index = x_pos * (y_pos - 1)
-          above_cell = @cells[above_cell_index]
-          above_cell.neighbours.push new_cell
-          new_cell.neighbours.push above_cell
+          above_cell = @cells[x_pos][y_pos - 1]
+          above_cell.add_neighbour new_cell
+        end
+        if x_pos > 0 and y_pos > 0
+          above_left_cell = @cells[x_pos - 1][y_pos - 1]
+          above_left_cell.add_neighbour new_cell
         end
       end
     end
+    #pp self
   end
 end
