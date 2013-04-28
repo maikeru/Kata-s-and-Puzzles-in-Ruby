@@ -49,4 +49,16 @@ describe 'when a 8x4 grid string is passed to the grid' do
     cell0_0 = grid.cells[0][0]
     cell0_0.neighbours.count.must_equal 3
   end
+
+  it "sets eight neighbours for the cell at (3,2)" do
+    cell3_2 = grid.cells[3][2]
+    cell3_2.neighbours.must_include grid.cells[2][1]
+    cell3_2.neighbours.must_include grid.cells[3][1]
+    cell3_2.neighbours.must_include grid.cells[4][1]
+    cell3_2.neighbours.must_include grid.cells[2][2]
+    cell3_2.neighbours.must_include grid.cells[4][2]
+    cell3_2.neighbours.must_include grid.cells[2][3]
+    cell3_2.neighbours.must_include grid.cells[3][3]
+    cell3_2.neighbours.must_include grid.cells[4][3]
+  end
 end

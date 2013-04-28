@@ -17,10 +17,7 @@ class Grid
     @cells = Array.new(x) { Array.new(y) { Cell.new } }
     y.times do |y_pos|
       x.times do |x_pos|
-        #puts "xpos #{x_pos} ypos #{y_pos}"
         new_cell = @cells[x_pos][y_pos]
-        #@cells.push new_cell
-        previous_cell = nil
         if x_pos > 0
           previous_cell = @cells[x_pos - 1][y_pos]
           previous_cell.add_neighbour new_cell
@@ -33,8 +30,16 @@ class Grid
           above_left_cell = @cells[x_pos - 1][y_pos - 1]
           above_left_cell.add_neighbour new_cell
         end
+        if x_pos < (x - 1) and y_pos > 0
+          above_right_cell = @cells[x_pos + 1][y_pos - 1]
+          above_right_cell.add_neighbour new_cell
+        end
       end
     end
+
+    #puts "#{@cells[2][1].to_s} #{@cells[3][1]} #{@cells[4][1]}"
+    #puts "#{@cells[2][2].to_s} #{@cells[3][2]} #{@cells[4][2]}"
+    #puts "#{@cells[2][3].to_s} #{@cells[3][3]} #{@cells[4][3]}"
     #pp self
   end
 end
