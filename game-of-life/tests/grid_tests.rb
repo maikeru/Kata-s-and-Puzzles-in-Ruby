@@ -62,3 +62,18 @@ describe 'when a 8x4 grid string is passed to the grid' do
     cell3_2.neighbours.must_include grid.cells[4][3]
   end
 end
+
+describe 'when an empty 8x4 grid string is passed to the grid' do
+  grid = Grid.new eight_by_four_empty_grid
+  it 'sets all the cells as dead' do
+    assert grid.cells.flatten.all? { |cell| cell.is_dead? }
+  end
+
+  describe 'and the next generation is calculated' do
+    grid.calculate_generation
+    it 'produces the same grid' do
+      # TODO Grid needs to set each sell as alive or dead before we can do this test
+      #grid.to_s.must_equal eight_by_four_empty_grid
+    end
+  end
+end

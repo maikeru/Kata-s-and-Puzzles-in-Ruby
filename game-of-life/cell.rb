@@ -7,6 +7,7 @@ class Cell
     @neighbours = []
     @id = @@id_counter
     @@id_counter += 1
+    die # All cells default to dead
   end
 
   def is_dead?

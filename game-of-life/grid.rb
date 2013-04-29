@@ -8,6 +8,28 @@ class Grid
     generate_from grid_string
   end
 
+  def calculate_generation
+  end
+
+  def to_s
+    grid_string = ''
+    x = @cells.size
+    y = @cells[0].size
+
+    y.times do |y_pos|
+      x.times do |x_pos|
+        cell = @cells[x_pos][y_pos]
+        if cell.is_alive?
+          grid_string += '*'
+        else
+          grid_string += '.'
+        end
+      end
+      grid_string += '\n'
+    end
+    grid_string
+  end
+
   private
 
   def generate_from grid_string
@@ -17,22 +39,22 @@ class Grid
     @cells = Array.new(x) { Array.new(y) { Cell.new } }
     y.times do |y_pos|
       x.times do |x_pos|
-        new_cell = @cells[x_pos][y_pos]
+        current_cell = @cells[x_pos][y_pos]
         if x_pos > 0
           previous_cell = @cells[x_pos - 1][y_pos]
-          previous_cell.add_neighbour new_cell
+          previous_cell.add_neighbour current_cell
         end
         if y_pos > 0
           above_cell = @cells[x_pos][y_pos - 1]
-          above_cell.add_neighbour new_cell
+          above_cell.add_neighbour current_cell
         end
         if x_pos > 0 and y_pos > 0
           above_left_cell = @cells[x_pos - 1][y_pos - 1]
-          above_left_cell.add_neighbour new_cell
+          above_left_cell.add_neighbour current_cell
         end
         if x_pos < (x - 1) and y_pos > 0
           above_right_cell = @cells[x_pos + 1][y_pos - 1]
-          above_right_cell.add_neighbour new_cell
+          above_right_cell.add_neighbour current_cell
         end
       end
     end
