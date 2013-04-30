@@ -12,25 +12,19 @@ class Calendar
   private
 
   CALENDAR_WIDTH = 20
-  INDENT_LEFT_BY = 1
+  CALENDAR_INDENT = 1
+  LINE_SEPARATOR = "\n"
 
   def generate_plain
     plain =
-      title + "\n" +
-      header + "\n" +
+      " " + title + LINE_SEPARATOR +
+      header + LINE_SEPARATOR +
       body
-  end
-
-  def center text, width
-    padding_size = (width / 2) - (text.length / 2) + INDENT_LEFT_BY
-    padding = ""
-    padding_size.times { padding += " " }
-    padding + text
   end
 
   def title
     title = @date.strftime("%B %Y")
-    center title, CALENDAR_WIDTH
+    title.center CALENDAR_WIDTH
   end
 
   def header
@@ -47,7 +41,7 @@ class Calendar
     (1 .. last_day_of_month).each do |day_of_month|
       body_text += format "%3d", day_of_month
       if end_of_week day_of_month
-        body_text += "\n"
+        body_text += LINE_SEPARATOR
       end
     end
     body_text

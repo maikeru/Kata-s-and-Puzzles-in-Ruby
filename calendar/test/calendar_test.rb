@@ -7,7 +7,7 @@ describe Calendar do
     month = 5
     calendar = Calendar.new year, month
     expected =
-"       May 2013\n" +
+"       May 2013      \n" +
 " Su Mo Tu We Th Fr Sa\n" +
 "           1  2  3  4\n" +
 "  5  6  7  8  9 10 11\n" +
