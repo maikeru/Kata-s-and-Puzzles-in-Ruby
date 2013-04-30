@@ -17,8 +17,8 @@ class Calendar
 
   def generate_plain
     plain =
-      " " + title + LINE_SEPARATOR +
-      header + LINE_SEPARATOR +
+      indent + title + LINE_SEPARATOR +
+      indent + header + LINE_SEPARATOR +
       body
   end
 
@@ -28,7 +28,7 @@ class Calendar
   end
 
   def header
-    " Su Mo Tu We Th Fr Sa"
+    "Su Mo Tu We Th Fr Sa"
   end
 
   def body
@@ -45,6 +45,12 @@ class Calendar
       end
     end
     body_text
+  end
+
+  def indent
+    indent_text = ""
+    CALENDAR_INDENT.times { indent_text += " " }
+    indent_text
   end
 
   def first_week_empty_days
