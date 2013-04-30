@@ -32,9 +32,6 @@ class Calendar
   end
 
   def body
-    end_of_month_date = @date.next_month - 1
-    last_day_of_month = end_of_month_date.mday
-
     body_text = ""
     padding_size = first_week_empty_days
     (3 * padding_size).times { body_text += " " }
@@ -59,5 +56,10 @@ class Calendar
 
   def end_of_week day_of_month
     (first_week_empty_days + day_of_month) % 7 == 0
+  end
+
+  def last_day_of_month
+    end_of_month_date = @date.next_month - 1
+    end_of_month_date.mday
   end
 end
