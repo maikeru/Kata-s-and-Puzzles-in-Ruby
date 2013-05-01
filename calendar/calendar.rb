@@ -1,5 +1,6 @@
 require 'date'
 
+# Generates a calendar for the year and month passed in
 class Calendar
   def initialize year, month
     @date = Date.new year, month, 1
@@ -16,6 +17,7 @@ class Calendar
   LINE_SEPARATOR = "\n"
   SIZE_OF_DAY = 3
   FIRST_DAY_OF_MONTH = 1
+  DAYS_IN_A_WEEK = 7
 
   def generate_plain
     plain =
@@ -53,7 +55,7 @@ class Calendar
   end
 
   def end_of_week? day_of_month
-    (first_week_empty_days + day_of_month) % 7 == 0
+    (first_week_empty_days + day_of_month) % DAYS_IN_A_WEEK == 0
   end
 
   def last_day_of_month
@@ -62,5 +64,6 @@ class Calendar
   end
 end
 
+# A class for formatting calendars in a "plain" style
 class PlainFormatter
 end
