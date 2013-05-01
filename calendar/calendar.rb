@@ -14,11 +14,13 @@ class Calendar
   CALENDAR_WIDTH = 20
   CALENDAR_INDENT = 1
   LINE_SEPARATOR = "\n"
+  SIZE_OF_DAY = 3
+  FIRST_DAY_OF_MONTH = 1
 
   def generate_plain
     plain =
-      indent + title + LINE_SEPARATOR +
-      indent + header + LINE_SEPARATOR +
+      indent(title) + LINE_SEPARATOR +
+      indent(header) + LINE_SEPARATOR +
       body
   end
 
@@ -32,29 +34,25 @@ class Calendar
   end
 
   def body
-    body_text = ""
-    padding_size = first_week_empty_days
-    (3 * padding_size).times { body_text += " " }
-    (1 .. last_day_of_month).each do |day_of_month|
+    body_text = " " * SIZE_OF_DAY * first_week_empty_days
+    (FIRST_DAY_OF_MONTH .. last_day_of_month).each do |day_of_month|
       body_text += format "%3d", day_of_month
-      if end_of_week day_of_month
+      if end_of_week? day_of_month
         body_text += LINE_SEPARATOR
       end
     end
     body_text
   end
 
-  def indent
-    indent_text = ""
-    CALENDAR_INDENT.times { indent_text += " " }
-    indent_text
+  def indent text
+    text.prepend " " * CALENDAR_INDENT
   end
 
   def first_week_empty_days
     @date.cwday
   end
 
-  def end_of_week day_of_month
+  def end_of_week? day_of_month
     (first_week_empty_days + day_of_month) % 7 == 0
   end
 
@@ -62,4 +60,7 @@ class Calendar
     end_of_month_date = @date.next_month - 1
     end_of_month_date.mday
   end
+end
+
+class PlainFormatter
 end
