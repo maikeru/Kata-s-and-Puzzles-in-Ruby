@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require_relative '../calendar'
+require_relative '../plain_formatter'
 
 describe Calendar do
   it "#generate" do
