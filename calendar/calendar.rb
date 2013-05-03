@@ -9,15 +9,17 @@ class Calendar
   def initialize year, month, formatter
     @start_date = Date.new year, month, 1
     @formatter = formatter.new self
-    empty_dates = (1..first_week_empty_days).map { EmptyDate.new }
-    non_empty_dates = (FIRST_DAY_OF_MONTH .. last_day_of_month).map do |day_of_month|
-      PlainDate.new(Date.new year, month, day_of_month)
+    @month_dates = (FIRST_DAY_OF_MONTH .. last_day_of_month).map do |day_of_month|
+      Date.new year, month, day_of_month
     end
-    @month_dates = (empty_dates + non_empty_dates).flatten
   end
 
   def to_s
     @formatter.format
+  end
+
+  def first_week_empty_days
+    @start_date.cwday
   end
 
   def end_of_week? day_of_month
@@ -25,10 +27,6 @@ class Calendar
   end
 
   private
-
-  def first_week_empty_days
-    @start_date.cwday
-  end
 
   def last_day_of_month
     (@start_date.next_month - 1).mday
@@ -46,23 +44,24 @@ class PlainFormatter
   end
 
   def format
+    temp_dates = @calendar.month_dates.map { |date| PlainDate.new date }
+    empty_dates = (1..@calendar.first_week_empty_days).map { EmptyDate.new }
+    @formatted_dates = (empty_dates + temp_dates).flatten
     plain =
       indent(title) + LINE_SEPARATOR +
-      indent(header) + LINE_SEPARATOR +
+      indent(HEADER) + LINE_SEPARATOR +
       body
   end
+
+  private
 
   def title
     @calendar.start_date.strftime("%B %Y").center CALENDAR_WIDTH
   end
 
-  def header
-    HEADER
-  end
-
   def body
     body_text = ""
-    @calendar.month_dates.each do |date|
+    @formatted_dates.each do |date|
       body_text += date.format
       body_text += LINE_SEPARATOR if @calendar.end_of_week? date.mday
     end
