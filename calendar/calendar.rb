@@ -2,15 +2,15 @@ require 'date'
 
 # Generates a calendar for the year and month passed in
 class Calendar
-  CALENDAR_WIDTH = 20
+  attr_reader :start_date, :month_dates
   CALENDAR_INDENT = 1
   LINE_SEPARATOR = "\n"
-  SIZE_OF_DAY = 3
   FIRST_DAY_OF_MONTH = 1
   DAYS_IN_A_WEEK = 7
 
-  def initialize year, month
+  def initialize year, month, formatter
     @start_date = Date.new year, month, 1
+    @formatter = formatter.new self
     empty_dates = (1..first_week_empty_days).map { EmptyDate.new }
     non_empty_dates = (FIRST_DAY_OF_MONTH .. last_day_of_month).map do |day_of_month|
       PlainDate.new(Date.new year, month, day_of_month)
@@ -25,23 +25,22 @@ class Calendar
       body
   end
 
+  def end_of_week? day_of_month
+    (first_week_empty_days + day_of_month) % DAYS_IN_A_WEEK == 0
+  end
+
   private
 
   def title
-    @start_date.strftime("%B %Y").center CALENDAR_WIDTH
+    @formatter.title
   end
 
   def header
-    "Su Mo Tu We Th Fr Sa"
+    @formatter.header
   end
 
   def body
-    body_text = ""
-    @month_dates.each do |date|
-      body_text += date.format
-      body_text += LINE_SEPARATOR if end_of_week? date.mday
-    end
-    body_text
+    @formatter.body
   end
 
   def indent text
@@ -52,12 +51,35 @@ class Calendar
     @start_date.cwday
   end
 
-  def end_of_week? day_of_month
-    (first_week_empty_days + day_of_month) % DAYS_IN_A_WEEK == 0
-  end
-
   def last_day_of_month
     (@start_date.next_month - 1).mday
+  end
+end
+
+class PlainFormatter
+  CALENDAR_WIDTH = 20
+  HEADER = "Su Mo Tu We Th Fr Sa"
+  LINE_SEPARATOR = "\n"
+
+  def initialize calendar
+    @calendar = calendar
+  end
+
+  def title
+    @calendar.start_date.strftime("%B %Y").center CALENDAR_WIDTH
+  end
+
+  def header
+    HEADER
+  end
+
+  def body
+    body_text = ""
+    @calendar.month_dates.each do |date|
+      body_text += date.format
+      body_text += LINE_SEPARATOR if @calendar.end_of_week? date.mday
+    end
+    body_text
   end
 end
 

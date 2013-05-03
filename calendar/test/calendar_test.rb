@@ -5,7 +5,7 @@ describe Calendar do
   it "#generate" do
     year = 2013
     month = 5
-    calendar = Calendar.new year, month
+    calendar = Calendar.new year, month, PlainFormatter
     expected =
 "       May 2013      \n" +
 " Su Mo Tu We Th Fr Sa\n" +
