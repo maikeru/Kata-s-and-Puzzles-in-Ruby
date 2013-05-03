@@ -39,9 +39,7 @@ class Calendar
     body_text = " " * SIZE_OF_DAY * first_week_empty_days
     (FIRST_DAY_OF_MONTH .. last_day_of_month).each do |day_of_month|
       body_text += format "%3d", day_of_month
-      if end_of_week? day_of_month
-        body_text += LINE_SEPARATOR
-      end
+      body_text += LINE_SEPARATOR if end_of_week? day_of_month
     end
     body_text
   end
