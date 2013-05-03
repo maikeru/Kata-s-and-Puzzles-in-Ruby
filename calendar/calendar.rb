@@ -11,9 +11,11 @@ class Calendar
 
   def initialize year, month
     @start_date = Date.new year, month, 1
-    @month_dates = (FIRST_DAY_OF_MONTH .. last_day_of_month).map do |day_of_month|
-      Date.new year, month, day_of_month
+    empty_dates = (1..first_week_empty_days).map { EmptyDate.new }
+    non_empty_dates = (FIRST_DAY_OF_MONTH .. last_day_of_month).map do |day_of_month|
+      PlainDate.new(Date.new year, month, day_of_month)
     end
+    @month_dates = (empty_dates + non_empty_dates).flatten
   end
 
   def to_s
@@ -34,9 +36,9 @@ class Calendar
   end
 
   def body
-    body_text = " " * SIZE_OF_DAY * first_week_empty_days
+    body_text = ""
     @month_dates.each do |date|
-      body_text += format "%3d", date.mday
+      body_text += date.format
       body_text += LINE_SEPARATOR if end_of_week? date.mday
     end
     body_text
@@ -56,5 +58,29 @@ class Calendar
 
   def last_day_of_month
     (@start_date.next_month - 1).mday
+  end
+end
+
+class PlainDate
+  def initialize date
+    @date = date
+  end
+
+  def format
+    sprintf "%3d", @date.mday
+  end
+
+  def mday
+    @date.mday
+  end
+end
+
+class EmptyDate
+  def format
+    " " * 3
+  end
+
+  def mday
+    0
   end
 end
