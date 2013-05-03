@@ -2,6 +2,13 @@ require 'date'
 
 # Generates a calendar for the year and month passed in
 class Calendar
+  CALENDAR_WIDTH = 20
+  CALENDAR_INDENT = 1
+  LINE_SEPARATOR = "\n"
+  SIZE_OF_DAY = 3
+  FIRST_DAY_OF_MONTH = 1
+  DAYS_IN_A_WEEK = 7
+
   def initialize year, month
     @date = Date.new year, month, 1
   end
@@ -11,13 +18,6 @@ class Calendar
   end
 
   private
-
-  CALENDAR_WIDTH = 20
-  CALENDAR_INDENT = 1
-  LINE_SEPARATOR = "\n"
-  SIZE_OF_DAY = 3
-  FIRST_DAY_OF_MONTH = 1
-  DAYS_IN_A_WEEK = 7
 
   def generate_plain
     plain =
@@ -59,8 +59,7 @@ class Calendar
   end
 
   def last_day_of_month
-    end_of_month_date = @date.next_month - 1
-    end_of_month_date.mday
+    (@date.next_month - 1).mday
   end
 end
 
