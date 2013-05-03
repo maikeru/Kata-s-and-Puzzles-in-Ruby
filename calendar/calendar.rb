@@ -47,7 +47,7 @@ class Calendar
   end
 
   def indent text
-    text.prepend " " * CALENDAR_INDENT
+    " " * CALENDAR_INDENT + text
   end
 
   def first_week_empty_days
