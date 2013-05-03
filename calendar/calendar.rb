@@ -14,17 +14,13 @@ class Calendar
   end
 
   def to_s
-    generate_plain
-  end
-
-  private
-
-  def generate_plain
     plain =
       indent(title) + LINE_SEPARATOR +
       indent(header) + LINE_SEPARATOR +
       body
   end
+
+  private
 
   def title
     title = @date.strftime("%B %Y")
