@@ -10,7 +10,10 @@ class Calendar
   DAYS_IN_A_WEEK = 7
 
   def initialize year, month
-    @date = Date.new year, month, 1
+    @start_date = Date.new year, month, 1
+    @month_dates = (FIRST_DAY_OF_MONTH .. last_day_of_month).map do |day_of_month|
+      Date.new year, month, day_of_month
+    end
   end
 
   def to_s
@@ -23,8 +26,7 @@ class Calendar
   private
 
   def title
-    title = @date.strftime("%B %Y")
-    title.center CALENDAR_WIDTH
+    @start_date.strftime("%B %Y").center CALENDAR_WIDTH
   end
 
   def header
@@ -33,9 +35,9 @@ class Calendar
 
   def body
     body_text = " " * SIZE_OF_DAY * first_week_empty_days
-    (FIRST_DAY_OF_MONTH .. last_day_of_month).each do |day_of_month|
-      body_text += format "%3d", day_of_month
-      body_text += LINE_SEPARATOR if end_of_week? day_of_month
+    @month_dates.each do |date|
+      body_text += format "%3d", date.mday
+      body_text += LINE_SEPARATOR if end_of_week? date.mday
     end
     body_text
   end
@@ -45,7 +47,7 @@ class Calendar
   end
 
   def first_week_empty_days
-    @date.cwday
+    @start_date.cwday
   end
 
   def end_of_week? day_of_month
@@ -53,10 +55,6 @@ class Calendar
   end
 
   def last_day_of_month
-    (@date.next_month - 1).mday
+    (@start_date.next_month - 1).mday
   end
-end
-
-# A class for formatting calendars in a "plain" style
-class PlainFormatter
 end
