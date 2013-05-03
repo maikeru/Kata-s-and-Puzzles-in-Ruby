@@ -6,15 +6,16 @@ class PlainFormatter
 
   def initialize calendar
     @calendar = calendar
+    @dateClass = PlainDate
   end
 
   def format
-    temp_dates = @calendar.month_dates.map { |date| PlainDate.new date }
+    temp_dates = @calendar.month_dates.map { |date| @dateClass.new date }
     empty_dates = (1..@calendar.first_week_empty_days).map { EmptyDate.new }
     @formatted_dates = (empty_dates + temp_dates).flatten
     plain =
       indent(title) + LINE_SEPARATOR +
-      indent(HEADER) + LINE_SEPARATOR +
+      indent(header) + LINE_SEPARATOR +
       body
   end
 
@@ -22,6 +23,10 @@ class PlainFormatter
 
   def title
     @calendar.start_date.strftime("%B %Y").center CALENDAR_WIDTH
+  end
+
+  def header
+    HEADER
   end
 
   def body
