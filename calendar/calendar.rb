@@ -3,8 +3,6 @@ require 'date'
 # Generates a calendar for the year and month passed in
 class Calendar
   attr_reader :start_date, :month_dates
-  CALENDAR_INDENT = 1
-  LINE_SEPARATOR = "\n"
   FIRST_DAY_OF_MONTH = 1
   DAYS_IN_A_WEEK = 7
 
@@ -19,10 +17,7 @@ class Calendar
   end
 
   def to_s
-    plain =
-      indent(title) + LINE_SEPARATOR +
-      indent(header) + LINE_SEPARATOR +
-      body
+    @formatter.format
   end
 
   def end_of_week? day_of_month
@@ -30,22 +25,6 @@ class Calendar
   end
 
   private
-
-  def title
-    @formatter.title
-  end
-
-  def header
-    @formatter.header
-  end
-
-  def body
-    @formatter.body
-  end
-
-  def indent text
-    " " * CALENDAR_INDENT + text
-  end
 
   def first_week_empty_days
     @start_date.cwday
@@ -60,9 +39,17 @@ class PlainFormatter
   CALENDAR_WIDTH = 20
   HEADER = "Su Mo Tu We Th Fr Sa"
   LINE_SEPARATOR = "\n"
+  CALENDAR_INDENT = 1
 
   def initialize calendar
     @calendar = calendar
+  end
+
+  def format
+    plain =
+      indent(title) + LINE_SEPARATOR +
+      indent(header) + LINE_SEPARATOR +
+      body
   end
 
   def title
@@ -81,6 +68,13 @@ class PlainFormatter
     end
     body_text
   end
+
+  private
+
+  def indent text
+    " " * CALENDAR_INDENT + text
+  end
+
 end
 
 class PlainDate
