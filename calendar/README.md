@@ -3,6 +3,7 @@ Calendar.rb
 Practice exercise. 
 Generates a calendar like this:
 
+```
         May 2013      
  Su Mo Tu We Th Fr Sa
            1  2  3  4
@@ -10,6 +11,7 @@ Generates a calendar like this:
  12 13 14 15 16 17 18
  19 20 21 22 23 24 25
  26 27 28 29 30 31 
+```
 
 Run tests from the project root like this:
 ruby test/calendar_test.rb
